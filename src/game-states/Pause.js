@@ -2,11 +2,9 @@ import 'pixi';
 import 'p2';
 import * as Phaser from 'phaser';
 
-export const Menu = game => {
+export const Pause = game => {
   return {
-    preload() {
-      game.load.audio('amy-poof', ['assets/sound/amy-poof-hi.mp3']);
-    },
+    preload() {},
     create() {
       const titleLabel = game.add.text(80, 80, 'Circles', {
         font: '50px Arial',

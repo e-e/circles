@@ -7,6 +7,7 @@ import Enemy from '../Enemy';
 
 let entities = [];
 let player;
+let poof;
 
 const rand_btw = (min, max) => {
   return Math.floor(Math.random() * Math.abs(max - min)) + min;
@@ -14,6 +15,8 @@ const rand_btw = (min, max) => {
 
 function collide(player, entity) {
   if (player.body.radius > entity.body.radius) {
+    console.log('poof', poof);
+    poof.play();
     entity.kill();
     this.entity.dead = true;
     this.player.setRadius(player.body.radius + entity.body.radius * 0.2);
@@ -45,6 +48,7 @@ export const Play = game => {
     preload() {},
     create() {
       game.physics.startSystem(Phaser.Physics.ARCADE);
+      poof = game.add.audio('amy-poof');
       player = new Player(game, {
         vx: 0,
         vy: 0,

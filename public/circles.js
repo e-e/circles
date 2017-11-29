@@ -60,11 +60,32 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["PIXI"] = __webpack_require__(8);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["p2"] = __webpack_require__(9);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(10);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 var g;
@@ -91,50 +112,250 @@ module.exports = g;
 
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["PIXI"] = __webpack_require__(5);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["p2"] = __webpack_require__(6);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(7);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Circle2 = __webpack_require__(5);
+
+var _Circle3 = _interopRequireDefault(_Circle2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Enemy = function (_Circle) {
+  _inherits(Enemy, _Circle);
+
+  function Enemy() {
+    _classCallCheck(this, Enemy);
+
+    var _this = _possibleConstructorReturn(this, (Enemy.__proto__ || Object.getPrototypeOf(Enemy)).apply(this, arguments));
+
+    _this.dead = false;
+    return _this;
+  }
+
+  _createClass(Enemy, [{
+    key: 'initBitmapData',
+    value: function initBitmapData() {
+      this.bitmap.circle(this.attributes.radius, this.attributes.radius, this.attributes.radius, 'rgba(200, 0, 0, 0.5)');
+      this.bitmap.shadow('rgba(255,255,255,0.3)', 10, 3, 3);
+    }
+  }]);
+
+  return Enemy;
+}(_Circle3.default);
+
+Enemy.ATTRIBUTES = {
+  radius: 100,
+  color: 0xff0000,
+  vx: 0,
+  vy: 0,
+  px: 0,
+  py: 0,
+  gy: 0,
+  gx: 0,
+  bounce: 1,
+  collideWorldBounds: false,
+  isPlayer: false
+};
+Enemy.MAX_R = 25;
+Enemy.MIN_R = 5;
+exports.default = Enemy;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Circle = function () {
+  function Circle(game) {
+    var attributes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    _classCallCheck(this, Circle);
+
+    this.game = game;
+    this.attributes = Object.assign({}, Circle.ATTRIBUTES, attributes);
+    this.init();
+  }
+
+  _createClass(Circle, [{
+    key: 'init',
+    value: function init() {
+      this.initBitmap();
+      this.initBitmapData();
+      this.initSprite();
+    }
+  }, {
+    key: 'reInit',
+    value: function reInit() {
+      this.attributes.px = this.sprite.x;
+      this.attributes.py = this.sprite.y;
+      this.init();
+    }
+  }, {
+    key: 'initBitmap',
+    value: function initBitmap() {
+      this.bitmap = this.game.add.bitmapData(this.attributes.radius * 2, this.attributes.radius * 2);
+    }
+  }, {
+    key: 'initBitmapData',
+    value: function initBitmapData() {
+      this.bitmap = this.game.add.bitmapData(this.attributes.radius * 2, this.attributes.radius * 2);
+      this.bitmap.circle(this.attributes.radius, this.attributes.radius, this.attributes.radius, 'rgba(200, 0, 0, 0.5)');
+    }
+  }, {
+    key: 'initSprite',
+    value: function initSprite() {
+      if (this.sprite) this.sprite.kill();
+      this.sprite = this.game.add.sprite(this.attributes.px, this.attributes.py, this.bitmap);
+      this.game.physics.arcade.enable(this.sprite);
+      this.sprite.body.setCircle(this.attributes.radius);
+      this.sprite.body.velocity.setTo(this.attributes.vx, this.attributes.vy);
+      this.sprite.body.collideWorldBounds = this.attributes.collideWorldBounds;
+      this.sprite.body.bounce.set(this.attributes.bounce);
+    }
+  }]);
+
+  return Circle;
+}();
+
+Circle.ATTRIBUTES = {
+  radius: 100,
+  color: 0xff0000,
+  vx: 0,
+  vy: 0,
+  px: 0,
+  py: 0,
+  gy: 0,
+  gx: 0,
+  bounce: 1,
+  collideWorldBounds: false,
+  isPlayer: false
+};
+Circle.MAX_R = 100;
+Circle.MIN_R = 25;
+exports.default = Circle;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Circle2 = __webpack_require__(5);
+
+var _Circle3 = _interopRequireDefault(_Circle2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Player = function (_Circle) {
+  _inherits(Player, _Circle);
+
+  function Player() {
+    _classCallCheck(this, Player);
+
+    return _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).apply(this, arguments));
+  }
+
+  _createClass(Player, [{
+    key: 'initBitmapData',
+    value: function initBitmapData() {
+      this.bitmap.ctx.strokeStyle = 'rgb(255,0,0)';
+      // this.bitmap.ctx.lineWidth = 5;
+      this.bitmap.circle(this.attributes.radius, this.attributes.radius, this.attributes.radius, 'rgba(255, 255, 255, 0.5)');
+    }
+  }, {
+    key: 'setRadius',
+    value: function setRadius(radius) {
+      this.attributes.radius = radius;
+      this.reInit();
+    }
+  }, {
+    key: 'update',
+    value: function update() {}
+  }]);
+
+  return Player;
+}(_Circle3.default);
+
+Player.ATTRIBUTES = {
+  radius: 100,
+  color: 0xff0000,
+  vx: 0,
+  vy: 0,
+  px: 0,
+  py: 0,
+  gy: 0,
+  gx: 0,
+  bounce: 1,
+  collideWorldBounds: false,
+  isPlayer: false
+};
+Player.MAX_R = 100;
+Player.MIN_R = 25;
+exports.default = Player;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(0);
+
 __webpack_require__(1);
 
-__webpack_require__(2);
-
-var _phaser = __webpack_require__(3);
+var _phaser = __webpack_require__(2);
 
 var Phaser = _interopRequireWildcard(_phaser);
 
-var _Enemy = __webpack_require__(10);
+var _Enemy = __webpack_require__(4);
 
 var _Enemy2 = _interopRequireDefault(_Enemy);
 
-var _Player = __webpack_require__(11);
+var _Player = __webpack_require__(6);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _gameStates = __webpack_require__(13);
+var _gameStates = __webpack_require__(12);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -148,7 +369,7 @@ game.state.add('lose', (0, _gameStates.Lose)(game));
 game.state.start('menu');
 
 /***/ }),
-/* 5 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -7723,7 +7944,7 @@ PIXI.TextureUvs = function()
 }).call(this);
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var require;var require;/**
@@ -21366,7 +21587,7 @@ World.prototype.raycast = function(result, ray){
 });
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -107311,10 +107532,10 @@ PIXI.canUseNewCanvasBlendModes = function () {
 * "What matters in this life is not what we do but what we do for others, the legacy we leave and the imprint we make." - Eric Meyer
 */
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
-/* 8 */
+/* 11 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -107504,7 +107725,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -107514,229 +107735,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Circle = function () {
-  function Circle(game) {
-    var attributes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-    _classCallCheck(this, Circle);
-
-    this.game = game;
-    this.attributes = Object.assign({}, Circle.ATTRIBUTES, attributes);
-    this.init();
-  }
-
-  _createClass(Circle, [{
-    key: 'init',
-    value: function init() {
-      this.initBitmap();
-      this.initBitmapData();
-      this.initSprite();
-    }
-  }, {
-    key: 'reInit',
-    value: function reInit() {
-      this.attributes.px = this.sprite.x;
-      this.attributes.py = this.sprite.y;
-      this.init();
-    }
-  }, {
-    key: 'initBitmap',
-    value: function initBitmap() {
-      this.bitmap = this.game.add.bitmapData(this.attributes.radius * 2, this.attributes.radius * 2);
-    }
-  }, {
-    key: 'initBitmapData',
-    value: function initBitmapData() {
-      this.bitmap = this.game.add.bitmapData(this.attributes.radius * 2, this.attributes.radius * 2);
-      this.bitmap.circle(this.attributes.radius, this.attributes.radius, this.attributes.radius, 'rgba(200, 0, 0, 0.5)');
-    }
-  }, {
-    key: 'initSprite',
-    value: function initSprite() {
-      if (this.sprite) this.sprite.kill();
-      this.sprite = this.game.add.sprite(this.attributes.px, this.attributes.py, this.bitmap);
-      this.game.physics.arcade.enable(this.sprite);
-      this.sprite.body.setCircle(this.attributes.radius);
-      this.sprite.body.velocity.setTo(this.attributes.vx, this.attributes.vy);
-      this.sprite.body.collideWorldBounds = this.attributes.collideWorldBounds;
-      this.sprite.body.bounce.set(this.attributes.bounce);
-    }
-  }]);
-
-  return Circle;
-}();
-
-Circle.ATTRIBUTES = {
-  radius: 100,
-  color: 0xff0000,
-  vx: 0,
-  vy: 0,
-  px: 0,
-  py: 0,
-  gy: 0,
-  gx: 0,
-  bounce: 1,
-  collideWorldBounds: false,
-  isPlayer: false
-};
-Circle.MAX_R = 100;
-Circle.MIN_R = 25;
-exports.default = Circle;
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Circle2 = __webpack_require__(9);
-
-var _Circle3 = _interopRequireDefault(_Circle2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Enemy = function (_Circle) {
-  _inherits(Enemy, _Circle);
-
-  function Enemy() {
-    _classCallCheck(this, Enemy);
-
-    var _this = _possibleConstructorReturn(this, (Enemy.__proto__ || Object.getPrototypeOf(Enemy)).apply(this, arguments));
-
-    _this.dead = false;
-    return _this;
-  }
-
-  _createClass(Enemy, [{
-    key: 'initBitmapData',
-    value: function initBitmapData() {
-      this.bitmap.circle(this.attributes.radius, this.attributes.radius, this.attributes.radius, 'rgba(200, 0, 0, 0.5)');
-      this.bitmap.shadow('rgba(255,255,255,0.3)', 10, 3, 3);
-    }
-  }]);
-
-  return Enemy;
-}(_Circle3.default);
-
-Enemy.ATTRIBUTES = {
-  radius: 100,
-  color: 0xff0000,
-  vx: 0,
-  vy: 0,
-  px: 0,
-  py: 0,
-  gy: 0,
-  gx: 0,
-  bounce: 1,
-  collideWorldBounds: false,
-  isPlayer: false
-};
-Enemy.MAX_R = 25;
-Enemy.MIN_R = 5;
-exports.default = Enemy;
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Circle2 = __webpack_require__(9);
-
-var _Circle3 = _interopRequireDefault(_Circle2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Player = function (_Circle) {
-  _inherits(Player, _Circle);
-
-  function Player() {
-    _classCallCheck(this, Player);
-
-    return _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).apply(this, arguments));
-  }
-
-  _createClass(Player, [{
-    key: 'initBitmapData',
-    value: function initBitmapData() {
-      this.bitmap.ctx.strokeStyle = 'rgb(255,0,0)';
-      // this.bitmap.ctx.lineWidth = 5;
-      this.bitmap.circle(this.attributes.radius, this.attributes.radius, this.attributes.radius, 'rgba(255, 255, 255, 0.5)');
-    }
-  }, {
-    key: 'setRadius',
-    value: function setRadius(radius) {
-      this.attributes.radius = radius;
-      this.reInit();
-    }
-  }, {
-    key: 'update',
-    value: function update() {}
-  }]);
-
-  return Player;
-}(_Circle3.default);
-
-Player.ATTRIBUTES = {
-  radius: 100,
-  color: 0xff0000,
-  vx: 0,
-  vy: 0,
-  px: 0,
-  py: 0,
-  gy: 0,
-  gx: 0,
-  bounce: 1,
-  collideWorldBounds: false,
-  isPlayer: false
-};
-Player.MAX_R = 100;
-Player.MIN_R = 25;
-exports.default = Player;
-
-/***/ }),
-/* 12 */,
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Menu = __webpack_require__(14);
+var _Menu = __webpack_require__(13);
 
 Object.keys(_Menu).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -107748,7 +107747,7 @@ Object.keys(_Menu).forEach(function (key) {
   });
 });
 
-var _Play = __webpack_require__(15);
+var _Play = __webpack_require__(14);
 
 Object.keys(_Play).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -107760,7 +107759,7 @@ Object.keys(_Play).forEach(function (key) {
   });
 });
 
-var _Win = __webpack_require__(16);
+var _Win = __webpack_require__(15);
 
 Object.keys(_Win).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -107772,7 +107771,7 @@ Object.keys(_Win).forEach(function (key) {
   });
 });
 
-var _Lose = __webpack_require__(17);
+var _Lose = __webpack_require__(16);
 
 Object.keys(_Lose).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -107785,7 +107784,7 @@ Object.keys(_Lose).forEach(function (key) {
 });
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -107796,11 +107795,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Menu = undefined;
 
+__webpack_require__(0);
+
 __webpack_require__(1);
 
-__webpack_require__(2);
-
-var _phaser = __webpack_require__(3);
+var _phaser = __webpack_require__(2);
 
 var Phaser = _interopRequireWildcard(_phaser);
 
@@ -107808,7 +107807,9 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var Menu = exports.Menu = function Menu(game) {
   return {
-    preload: function preload() {},
+    preload: function preload() {
+      game.load.audio('amy-poof', ['assets/sound/amy-poof-hi.mp3']);
+    },
     create: function create() {
       var _this = this;
 
@@ -107831,7 +107832,7 @@ var Menu = exports.Menu = function Menu(game) {
 };
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -107842,19 +107843,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Play = undefined;
 
+__webpack_require__(0);
+
 __webpack_require__(1);
 
-__webpack_require__(2);
-
-var _phaser = __webpack_require__(3);
+var _phaser = __webpack_require__(2);
 
 var Phaser = _interopRequireWildcard(_phaser);
 
-var _Player = __webpack_require__(11);
+var _Player = __webpack_require__(6);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _Enemy = __webpack_require__(10);
+var _Enemy = __webpack_require__(4);
 
 var _Enemy2 = _interopRequireDefault(_Enemy);
 
@@ -107864,6 +107865,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var entities = [];
 var player = void 0;
+var poof = void 0;
 
 var rand_btw = function rand_btw(min, max) {
   return Math.floor(Math.random() * Math.abs(max - min)) + min;
@@ -107871,6 +107873,8 @@ var rand_btw = function rand_btw(min, max) {
 
 function collide(player, entity) {
   if (player.body.radius > entity.body.radius) {
+    console.log('poof', poof);
+    poof.play();
     entity.kill();
     this.entity.dead = true;
     this.player.setRadius(player.body.radius + entity.body.radius * 0.2);
@@ -107902,6 +107906,7 @@ var Play = exports.Play = function Play(game) {
     preload: function preload() {},
     create: function create() {
       game.physics.startSystem(Phaser.Physics.ARCADE);
+      poof = game.add.audio('amy-poof');
       player = new _Player2.default(game, {
         vx: 0,
         vy: 0,
@@ -107950,7 +107955,7 @@ var Play = exports.Play = function Play(game) {
 };
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -107961,11 +107966,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Win = undefined;
 
+__webpack_require__(0);
+
 __webpack_require__(1);
 
-__webpack_require__(2);
-
-var _phaser = __webpack_require__(3);
+var _phaser = __webpack_require__(2);
 
 var Phaser = _interopRequireWildcard(_phaser);
 
@@ -107996,7 +108001,7 @@ var Win = exports.Win = function Win(game) {
 };
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -108007,11 +108012,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Lose = undefined;
 
+__webpack_require__(0);
+
 __webpack_require__(1);
 
-__webpack_require__(2);
-
-var _phaser = __webpack_require__(3);
+var _phaser = __webpack_require__(2);
 
 var Phaser = _interopRequireWildcard(_phaser);
 
